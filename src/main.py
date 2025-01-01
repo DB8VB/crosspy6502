@@ -38,13 +38,13 @@ def main(argv):
     label_offsets   = get_label_offsets(tokens, offset, labels)
 
     # Replace labels with addresses
-    tokens = labels_to_adresses(tokens, label_offsets)
+    tokens          = labels_to_adresses(tokens, label_offsets)
 
     # Replace labels with relative addresses (for branches, e.g. BNE, BEQ, etc.)
-    tokens = compute_relative_relative_addresses(tokens, offset, label_offsets)
+    tokens          = compute_relative_relative_addresses(tokens, offset, label_offsets)
 
     # Parse the tokens and generate the op codes
-    op_codes = parse(tokens)
+    op_codes        = parse(tokens)
 
     # Write the op codes to the output file
     with open(output_file, 'wb') as file:
