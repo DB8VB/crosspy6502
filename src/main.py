@@ -5,9 +5,9 @@
 # License: BSD 2-Clause License
 
 import  sys
-from    tokenize import tokenize
-from    parser import single_opcode_dict, double_opcode_dict, triple_opcode_dict, other_opcodes, is_hex_string, check_type, parse
-from    memory import get_memory_offset, get_labels, get_label_offsets, labels_to_adresses, compute_relative_relative_addresses 
+from    tokenize import *
+from    parser import *
+from    memory import *
 
 
 def main(argv):
@@ -24,17 +24,22 @@ def main(argv):
     with open(input_file, 'rt') as fp:
         tokens = tokenize(fp)
 
-
     # Get the memory offset from the first source code line (.org) - if no .org directive given, default: 0x0000
-    offset = get_memory_offset(tokens)
-    # Get the labels from source code
-    labels = get_labels(tokens)
-    # Get the offsets of the labels from source code
-    label_offsets = get_label_offsets(tokens, offset, labels)
+    offset          = get_memory_offset(tokens)
 
+    # Get constants and replace them with corresponding values in the source code
+    constants       = get_constants(tokens)
+    tokens          = replace_constants(tokens, constants)
+
+    # Get the labels from source code
+    labels          = get_labels(tokens)
+
+    # Get the offsets of the labels from source code
+    label_offsets   = get_label_offsets(tokens, offset, labels)
 
     # Replace labels with addresses
     tokens = labels_to_adresses(tokens, label_offsets)
+
     # Replace labels with relative addresses (for branches, e.g. BNE, BEQ, etc.)
     tokens = compute_relative_relative_addresses(tokens, offset, label_offsets)
 

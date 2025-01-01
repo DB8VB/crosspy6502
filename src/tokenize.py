@@ -25,6 +25,9 @@ def tokenize(fp):
                         include_fp = open(os.path.join(os.path.dirname(fp.name), include_path), 'r') # Open the included file
                     process_file(include_fp) # Process the included file recursively to handle nested includes
                     include_fp.close()
+                elif first_word == '.const':
+                    rest = line.split()
+                    tokens.append([rest[0].lower(), rest[1].lower(), rest[2].lower()])
                 else:
                     if ''.join(words[1:]).startswith('"'):  # if the first character is a quote, we have a text directive
                         rest = ' '.join(words[1:])

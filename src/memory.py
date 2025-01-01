@@ -21,6 +21,20 @@ def get_memory_offset(tokens):
                 sys.exit(1)
     return offset
 
+def get_constants(tokens):
+    constants = []
+    for i in range(len(tokens)):
+        if (tokens[i][0] == '.const'):
+            constants.append([tokens[i][1].lower(), tokens[i][2].lower()])
+    return constants
+
+def replace_constants(tokens, constants):
+    for i in range(len(tokens)):
+        for j in range(len(constants)):
+            if constants[j][0] in tokens[i][1]:
+                tokens[i][1] = tokens[i][1].replace(constants[j][0], constants[j][1])
+    return tokens
+
 # Every line where the first word ends with a colon is a label
 def get_labels(tokens):
     labels = []
