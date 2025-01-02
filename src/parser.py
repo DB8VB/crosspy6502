@@ -12,15 +12,15 @@ single_opcode_dict = {
     'dex': [0xCA, 1], 'cld': [0xD8, 1], 'inx': [0xE8, 1], 'nop': [0xEA, 1],
     'sed': [0xF8, 1]
 }
+
 double_opcode_dict = {
     'bcc': [0x90, 2], 'bcs': [0xB0, 2], 'beq': [0xF0, 2], 'bmi': [0x30, 2],
     'bne': [0xD0, 2], 'bpl': [0x10, 2], 'bvc': [0x50, 2], 'bvs': [0x70, 2]
 }
+
 triple_opcode_dict = {
     'jmp': [0x4C, 3], 'jsr': [0x20, 3]
 }
-other_opcodes = ['lda','ldx','ldy','sta','stx','sty','adc','sbc','inc','dec','and','eor','ora','cmp','cpx','cpy','bit','asl','lsr','rol','ror']
-
 
 
 def parse( tokens ):
