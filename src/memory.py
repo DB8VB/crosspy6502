@@ -83,6 +83,21 @@ def get_label_offsets( tokens , offset, label_list):
                 else:
                     print('Syntax error in line',i+1)
                     print(".org directive address out of range")
+        elif(tokens[i][0] == '.res'):
+            if (tokens[i][1][0] =='$' and is_hex_string(tokens[i][1][1:])):
+                if int(tokens[i][1][1:],16)<= 65535:
+                    num_bytes = int(tokens[i][1][1:],16)
+                    tokens[i][1] = num_bytes
+                else:
+                    print('Syntax error in line',i+1)
+                    print(".org directive address out of range")
+            elif tokens[i][1].isnumeric():
+                if int(tokens[i][1])<= 65535:
+                    num_bytes = int(tokens[i][1])
+                    tokens[i][1] = num_bytes
+                else:
+                    print('Syntax error in line',i+1)
+                    print(".org directive address out of range")
         elif(tokens[i][0] == '.byte'):
             num_bytes = len(tokens[i][1].split(','))
         elif(tokens[i][0] == '.word'):
@@ -151,6 +166,8 @@ def get_current_offset( tokens , offset, label_list,line):
         elif(tokens[i][0] in triple_opcode_dict):   # always 3 bytes
             num_bytes = 3
         elif(tokens[i][0] == '.org'):
+            num_bytes = int(tokens[i][1])                # Remember: we stored the number of bytes in the .org directive (see get_label_offsets)
+        elif(tokens[i][0] == '.res'):
             num_bytes = int(tokens[i][1])                # Remember: we stored the number of bytes in the .org directive (see get_label_offsets)
         elif(tokens[i][0] == '.byte'):
             num_bytes = len(tokens[i][1].split(','))    

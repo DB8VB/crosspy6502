@@ -767,3 +767,13 @@ def handle_org_directive(operands):
         memory.append(0x00)
         
     return memory
+
+def handle_res_directive(operands):
+    
+    memory = []
+    
+    # Convert each character to its ASCII value
+    for i in range(int(operands)):
+        memory.append(0x00)
+        
+    return memory
