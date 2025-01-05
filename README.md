@@ -23,7 +23,7 @@ python3 main.py example.asm example.bin
 ## Syntax
 CrossPy6502 supports the standard 6502 assembly language syntax with some exceptions: 
 
-1. The implemented directives `.org`, `.const` `.byte`, `.word`, and `.text` start with a `.` instead of a `!`.
+1. The implemented directives `.org`, `.const` `.byte`, `.word`, `.res` and `.text` start with a `.` instead of a `!`.
 2. Labels must be on separate lines and always followed by a colon, for example, `label_name:`.
 3. Source files can be included using the `.include "<path>filename"` directive. CrossPy6502 supports nested `.include` directives.
 4. Constants are defined by `.const NAME <value>` and must not have the same names as labels.

@@ -220,7 +220,7 @@ def get_current_offset( tokens , offset, label_list,line):
 def labels_to_adresses(tokens, label_offsets):
     for i in range(len(tokens)):
         for label, address in label_offsets:
-            if label in tokens[i][1] and tokens[i][0] not in double_opcode_dict:
+            if len(tokens[i]) > 1 and isinstance(tokens[i][1], str) and label in tokens[i][1] and tokens[i][0] not in double_opcode_dict:
                 tokens[i][1] = tokens[i][1].replace(label, f"${address:04X}")
     return tokens
 
